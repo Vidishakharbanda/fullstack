@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./fordeploy
+    container_name: fastapi-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./fordeploy/app:/app/app
+    restart: always
+
+  frontend:
+    build:
+      context: ./front
+    container_name: react-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
