@@ -9,14 +9,20 @@
 // export default App
 
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+interface Item {
+  id: number;
+  name: string;
+  price: number;
+}
 
 const App = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8000/items")
+    fetch("https://vidisha-ctcfg7e2hrcnfbdz.centralindia-01.azurewebsites.net/items")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch items");
@@ -40,7 +46,7 @@ const App = () => {
       <ul>
         {items.map((item) => (
           <li key={item.id}>
-            {item.name}
+            {item.name} - ${item.price.toFixed(2)}
           </li>
         ))}
       </ul>
